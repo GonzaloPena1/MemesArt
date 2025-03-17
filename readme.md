@@ -1,4 +1,4 @@
-# LMS3000
+# MemesArt
 
 LMS3000 is a modern Learning Management System built with **React** for the frontend and a **Sequelize/Node/MySQL** backend. This application provides a robust platform for managing courses, students, and instructors efficiently.
 
