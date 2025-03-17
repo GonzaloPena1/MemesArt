@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "When Monday Hits",
+    "postedBy": "user123",
+    "image": "https://example.com/memes/meme1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Coding at 3AM",
+    "postedBy": "memeMaster99",
+    "image": "https://example.com/memes/meme2.png"
+  },
+  {
+    "id": 3,
+    "title": "Expectation vs Reality",
+    "postedBy": "funnyGuy",
+    "image": "https://example.com/memes/meme3.gif"
+  },
+  {
+    "id": 4,
+    "title": "That One Friend",
+    "postedBy": "lolQueen",
+    "image": "https://example.com/memes/meme4.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Dank Level 9000",
+    "postedBy": "dankLord420",
+    "image": "https://example.com/memes/meme5.png"
+  }
+]
