@@ -41,6 +41,11 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
     }
   };
 
+  // Construct the full image URL
+  const imageUrl = post.image.startsWith("http")
+    ? post.image
+    : `http://localhost:3001${post.image}`;
+
   return (
     <div className="card">
       <div className="card-description" style={{ textAlign: "center" }}>
@@ -55,11 +60,7 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
         )}
       </div>
       <img
-        src={
-          post.image.startsWith("http")
-            ? post.image
-            : `http://localhost:3001${post.image}`
-        }
+        src={imageUrl}
         alt={post.title}
         className="card-image"
         style={{
@@ -94,22 +95,22 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
           <a className="likes-count">{count}</a>
         </button>
       </div>
-      <EmailShareButton url="http://localhost:3001/uploads/1742157764692.png">
+      <EmailShareButton url={imageUrl}>
         <EmailIcon size={42} round={true} style={{ margin: "5px" }} />
       </EmailShareButton>
-      <FacebookShareButton url="http://localhost:3001/uploads/1742157764692.png">
+      <FacebookShareButton url={imageUrl}>
         <FacebookIcon size={42} round={true} style={{ margin: "5px" }} />
       </FacebookShareButton>
-      <LinkedinShareButton url="http://localhost:3001/uploads/1742157764692.png">
+      <LinkedinShareButton url={imageUrl}>
         <LinkedinIcon size={42} round={true} style={{ margin: "5px" }} />
       </LinkedinShareButton>
-      <RedditShareButton url="http://localhost:3001/uploads/1742157764692.png">
+      <RedditShareButton url={imageUrl}>
         <RedditIcon size={42} round={true} style={{ margin: "5px" }} />
       </RedditShareButton>
-      <TwitterShareButton url="http://localhost:3001/uploads/1742157764692.png">
+      <TwitterShareButton url={imageUrl}>
         <XIcon size={42} round={true} style={{ margin: "5px" }} />
       </TwitterShareButton>
-      <WhatsappShareButton url="http://localhost:3001/uploads/1742157764692.png">
+      <WhatsappShareButton url={imageUrl}>
         <WhatsappIcon size={42} round={true} style={{ margin: "5px" }} />
       </WhatsappShareButton>
     </div>
