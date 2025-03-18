@@ -1,4 +1,6 @@
+
 # MEMESART
+
 
 MEMESART is a MEME sharing app for artists built with **React** for the frontend and a **Sequelize/Node/MySQL** backend. This application provides a robust platform for artists to upload their memes.
 
