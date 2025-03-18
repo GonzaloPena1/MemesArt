@@ -1,6 +1,6 @@
-# LMS3000
+# MEMESART
 
-LMS3000 is a modern Learning Management System built with **React** for the frontend and a **Sequelize/Node/MySQL** backend. This application provides a robust platform for managing courses, students, and instructors efficiently.
+MEMESART is a MEME sharing app for artists built with **React** for the frontend and a **Sequelize/Node/MySQL** backend. This application provides a robust platform for artists to upload their memes.
 
 ## Features
 
@@ -12,13 +12,13 @@ LMS3000 is a modern Learning Management System built with **React** for the fron
 
 ## Installation
 
-Follow these steps to install and set up LMS3000 locally:
+Follow these steps to install and set up MEMEART locally:
 
 ### 1. Clone the Repository
 
 ```sh
-git clone https://github.com/Step8Up-SBC/lms-3000.git
-cd LMS3000
+git clone https://github.com/GonzaloPena1/MemesArt
+cd MemesArt
 ```
 
 ### 2. Create the Database
@@ -32,7 +32,7 @@ mysql -u root -p
 Enter your MySQL password when prompted, then create the database by running:
 
 ```sh
-source server/db/schema.sql;
+source db/schema.sql;
 quit;
 ```
 
@@ -74,7 +74,7 @@ The application should now be running locally.
 
 ## Contributing
 
-Feel free to submit issues and pull requests to improve LMS3000. Contributions are welcome!
+Feel free to submit issues and pull requests to improve MemesArt. Contributions are welcome!
 
 ## License
 
