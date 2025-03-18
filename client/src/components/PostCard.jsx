@@ -2,6 +2,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  LinkedinShareButton,
+  RedditShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  EmailIcon,
+  FacebookIcon,
+  LinkedinIcon,
+  RedditIcon,
+  XIcon,
+  WhatsappIcon,
+} from "react-share";
 
 const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -80,6 +94,24 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
           <a className="likes-count">{count}</a>
         </button>
       </div>
+      <EmailShareButton url="http://localhost:3001/uploads/1742157764692.png">
+        <EmailIcon />
+      </EmailShareButton>
+      <FacebookShareButton url="http://localhost:3001/uploads/1742157764692.png">
+        <FacebookIcon />
+      </FacebookShareButton>
+      <LinkedinShareButton url="http://localhost:3001/uploads/1742157764692.png">
+        <LinkedinIcon />
+      </LinkedinShareButton>
+      <RedditShareButton url="http://localhost:3001/uploads/1742157764692.png">
+        <RedditIcon />
+      </RedditShareButton>
+      <TwitterShareButton url="http://localhost:3001/uploads/1742157764692.png">
+        <XIcon />
+      </TwitterShareButton>
+      <WhatsappShareButton url="http://localhost:3001/uploads/1742157764692.png">
+        <WhatsappIcon />
+      </WhatsappShareButton>
     </div>
   );
 };
