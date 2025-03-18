@@ -95,22 +95,22 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
         </button>
       </div>
       <EmailShareButton url="http://localhost:3001/uploads/1742157764692.png">
-        <EmailIcon />
+        <EmailIcon size={42} round={true} style={{ margin: "5px" }} />
       </EmailShareButton>
       <FacebookShareButton url="http://localhost:3001/uploads/1742157764692.png">
-        <FacebookIcon />
+        <FacebookIcon size={42} round={true} style={{ margin: "5px" }} />
       </FacebookShareButton>
       <LinkedinShareButton url="http://localhost:3001/uploads/1742157764692.png">
-        <LinkedinIcon />
+        <LinkedinIcon size={42} round={true} style={{ margin: "5px" }} />
       </LinkedinShareButton>
       <RedditShareButton url="http://localhost:3001/uploads/1742157764692.png">
-        <RedditIcon />
+        <RedditIcon size={42} round={true} style={{ margin: "5px" }} />
       </RedditShareButton>
       <TwitterShareButton url="http://localhost:3001/uploads/1742157764692.png">
-        <XIcon />
+        <XIcon size={42} round={true} style={{ margin: "5px" }} />
       </TwitterShareButton>
       <WhatsappShareButton url="http://localhost:3001/uploads/1742157764692.png">
-        <WhatsappIcon />
+        <WhatsappIcon size={42} round={true} style={{ margin: "5px" }} />
       </WhatsappShareButton>
     </div>
   );
