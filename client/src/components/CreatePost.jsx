@@ -47,20 +47,22 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
+    <div className="create-post">
       <h2>Create a New Post</h2>
-      <div>
+      <div id="post-title">
         <label htmlFor="title">Title:</label>
         <input
           type="text"
           id="title"
+          placeholder="Your title..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
-      <div>
+      <div id="post-image">
         <label htmlFor="image">Upload Image:</label>
         <input
+          className="choose-file"
           type="file"
           id="image"
           accept="image/*"
