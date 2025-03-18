@@ -84,6 +84,52 @@ form button:hover {
   background-color: #555;
 }
 
+/* Create Post Styles */
+.create-post {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.create-post h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.create-post #post-title input {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#post-image {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.choose-file {
+  margin-left: 10px;
+}
+
+.create-post button {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-post button:hover {
+  background-color: #555;
+}
 /* Course List Styles */
 div {
   padding: 20px;
