@@ -46,6 +46,7 @@ app.post("/", authMiddleware, upload.single("image"), async (req, res) => {
     res.status(500).json({ error: "Error adding post" });
   }
 });
+
 // Route to get all posts
 app.get("/", authMiddleware, async (_, res) => {
   try {
@@ -86,6 +87,45 @@ app.delete("/:id", authMiddleware, async (req, res) => {
     res.status(500).json({ error: "Error deleting post" });
   }
 });
+//Route to like and unlike a post
+app.post("/:id/like", authMiddleware, async (req, res) => {
+  try {
+    const post = await Post.findByPk(req.params.id);
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
 
+    const userId = req.user.id;
+
+    let likedBy = [];
+    try {
+      likedBy = JSON.parse(post.likedBy || "[]");
+    } catch (error) {
+      console.error("Error parsing likedBy:", error);
+      likedBy = [];
+    }
+
+    const userIndex = likedBy.indexOf(userId);
+
+    if (userIndex === -1) {
+      post.likes += 1;
+      likedBy.push(userId);
+    } else {
+      post.likes = Math.max(post.likes - 1, 0);
+      likedBy.splice(userIndex, 1);
+    }
+
+    post.likedBy = JSON.stringify(likedBy);
+
+    await post.save();
+
+    console.log("Updated post:", post.toJSON());
+
+    res.json({ likes: post.likes, likedBy: likedBy });
+  } catch (error) {
+    console.error("Error toggling like:", error);
+    res.status(500).json({ error: "Error toggling like" });
+  }
+});
 // export the router
 module.exports = app;

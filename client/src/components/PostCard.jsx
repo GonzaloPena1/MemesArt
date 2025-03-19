@@ -1,5 +1,5 @@
 // export default PostCard;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../api";
 import {
@@ -20,7 +20,8 @@ import {
 const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(post.title);
-  const [count, setCount] = useState(0);
+  const [likes, setLikes] = useState(post.likes);
+  const [isLiked, setIsLiked] = useState(post.likedBy.includes(loggedInUser));
 
   const handleUpdate = async () => {
     try {
@@ -38,6 +39,17 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
       onDelete(post.id);
     } catch (error) {
       console.error("Failed to delete post", error);
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      const response = await api.post(`/api/posts/${post.id}/like`);
+      console.log("Like response:", response.data);
+      setLikes(response.data.likes);
+      setIsLiked(response.data.likedBy.includes(loggedInUser));
+    } catch (error) {
+      console.error("Failed to toggle like", error);
     }
   };
 
@@ -87,12 +99,9 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
             </button>
           </>
         )}
-        <button
-          className="button"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Likes
-          <a className="likes-count">{count}</a>
+        <button className="button" onClick={handleLike}>
+          {isLiked ? "Unlike" : "Like"}
+          <a className="likes-count">{likes}</a>
         </button>
       </div>
       <EmailShareButton url={imageUrl}>
