@@ -23,6 +23,22 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    likes: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    likedBy: {
+      type: DataTypes.TEXT,
+      defaultValue: "[]",
+      get() {
+        const rawValue = this.getDataValue("likedBy");
+        return rawValue ? JSON.parse(rawValue) : [];
+      },
+      set(value) {
+        this.setDataValue("likedBy", JSON.stringify(value));
+      },
+    },
   },
   {
     sequelize,
@@ -33,5 +49,4 @@ Post.init(
   }
 );
 
-// Export Post model
 module.exports = Post;
