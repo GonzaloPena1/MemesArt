@@ -1,4 +1,3 @@
-// export default PostCard;
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api";
@@ -16,11 +15,13 @@ import {
   XIcon,
   WhatsappIcon,
 } from "react-share";
+import { FaShareAlt } from "react-icons/fa";
 
 const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(post.title);
   const [count, setCount] = useState(0);
+  const [open, setOpen] = useState(false); // Controls popup visibility
 
   const handleUpdate = async () => {
     try {
@@ -87,32 +88,39 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
             </button>
           </>
         )}
-        <button
-          className="button"
-          onClick={() => setCount((count) => count + 1)}
-        >
+        <button className="button" onClick={() => setCount(count + 1)}>
           Likes
           <a className="likes-count">{count}</a>
         </button>
+        <button className="button" onClick={() => setOpen(!open)}>
+          <FaShareAlt size={18} style={{ marginRight: "5px" }} />
+          Share
+        </button>
+
+        {/* Small Popup for Social Media Icons */}
+        {open && (
+          <div className="share-popup">
+            <EmailShareButton url={imageUrl}>
+              <EmailIcon size={32} round />
+            </EmailShareButton>
+            <FacebookShareButton url={imageUrl}>
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+            <LinkedinShareButton url={imageUrl}>
+              <LinkedinIcon size={32} round />
+            </LinkedinShareButton>
+            <RedditShareButton url={imageUrl}>
+              <RedditIcon size={32} round />
+            </RedditShareButton>
+            <TwitterShareButton url={imageUrl}>
+              <XIcon size={32} round />
+            </TwitterShareButton>
+            <WhatsappShareButton url={imageUrl}>
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+          </div>
+        )}
       </div>
-      <EmailShareButton url={imageUrl}>
-        <EmailIcon size={42} round={true} style={{ margin: "5px" }} />
-      </EmailShareButton>
-      <FacebookShareButton url={imageUrl}>
-        <FacebookIcon size={42} round={true} style={{ margin: "5px" }} />
-      </FacebookShareButton>
-      <LinkedinShareButton url={imageUrl}>
-        <LinkedinIcon size={42} round={true} style={{ margin: "5px" }} />
-      </LinkedinShareButton>
-      <RedditShareButton url={imageUrl}>
-        <RedditIcon size={42} round={true} style={{ margin: "5px" }} />
-      </RedditShareButton>
-      <TwitterShareButton url={imageUrl}>
-        <XIcon size={42} round={true} style={{ margin: "5px" }} />
-      </TwitterShareButton>
-      <WhatsappShareButton url={imageUrl}>
-        <WhatsappIcon size={42} round={true} style={{ margin: "5px" }} />
-      </WhatsappShareButton>
     </div>
   );
 };
