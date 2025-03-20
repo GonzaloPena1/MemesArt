@@ -1,24 +1,30 @@
 /* General Styles */
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: Bangers, sans-serif;
   margin: 0;
-  padding: 0;
   background-color: white;
 }
 
+/* Navbar Styles */
 header {
   background-color: #333;
   color: white;
-  padding: 20px 20px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box;
 }
-
 header h1 {
   margin: 0;
   font-size: 1.5rem;
+  color: red;
 }
 
 header nav {
@@ -46,8 +52,10 @@ header nav a:hover,
 header nav button:hover {
   text-decoration: underline;
 }
+main {
+  padding-top: 70px;
+}
 
-/* Form Styles */
 form {
   max-width: 400px;
   margin: 50px auto;
@@ -193,9 +201,9 @@ li {
 }
 .card-options {
   display: flex;
-  align-items: center;
-  gap: 12px;
   justify-content: center;
+  align-items: center;
+  margin-top: 16px;
 }
 
 .post-list {
@@ -204,37 +212,27 @@ li {
   gap: 20px;
 }
 
-.icon {
-  font-size: 22px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.icon:hover {
-  transform: scale(1.2);
-}
-
-.delete-icon {
-  color: red;
-}
-.liked {
-  color: red;
-}
-
-.likes-container {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.likes-count {
-  font-size: 14px;
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 16px;
   font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.share-container {
-  position: relative;
+.button:hover {
+  background-color: #0056b3;
 }
+
 .mt-5 {
   margin-top: 5px;
 }
@@ -299,17 +297,4 @@ li {
     display: block;
     margin-top: 150px;
   }
-}
-.share-popup {
-  position: absolute;
-  right: -70px;
-  transform: translateY(-50%);
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  z-index: 50;
 }
