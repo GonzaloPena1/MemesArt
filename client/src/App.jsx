@@ -10,6 +10,7 @@ import PublishPost from "./components/CreatePost";
 import Footer from "./components/Footer";
 import HomePage from "./components/HomePage";
 import { SessionProvider } from "./contexts/SessionContext";
+import ThemeToggle from "./components/ThemeToggle"; // Import the toggle button
 
 const App = () => {
   const loggedInUser = "user123";
@@ -18,6 +19,7 @@ const App = () => {
     <div>
       <SessionProvider>
         <Header />
+        <ThemeToggle /> {/* Add the Theme Toggle button here */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
