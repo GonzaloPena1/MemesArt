@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
-// export default PostCard;
-import React, { useState, useEffect } from "react";
->>>>>>> 054119e36f975433de57e67860037e336be70de1
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
 import api from "../api";
 import {
   EmailShareButton,
@@ -20,18 +14,32 @@ import {
   XIcon,
   WhatsappIcon,
 } from "react-share";
-import { FaShareAlt } from "react-icons/fa";
+import {
+  FaShareAlt,
+  FaEdit,
+  FaTrash,
+  FaHeart,
+  FaRegHeart,
+  FaSave,
+} from "react-icons/fa";
 
 const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(post.title);
-<<<<<<< HEAD
-  const [count, setCount] = useState(0);
-  const [open, setOpen] = useState(false); // Controls popup visibility
-=======
   const [likes, setLikes] = useState(post.likes);
   const [isLiked, setIsLiked] = useState(post.likedBy.includes(loggedInUser));
->>>>>>> 054119e36f975433de57e67860037e336be70de1
+  const [showShare, setShowShare] = useState(false);
+  const shareRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (shareRef.current && !shareRef.current.contains(event.target)) {
+        setShowShare(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleUpdate = async () => {
     try {
@@ -55,7 +63,6 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
   const handleLike = async () => {
     try {
       const response = await api.post(`/api/posts/${post.id}/like`);
-      console.log("Like response:", response.data);
       setLikes(response.data.likes);
       setIsLiked(response.data.likedBy.includes(loggedInUser));
     } catch (error) {
@@ -63,7 +70,6 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
     }
   };
 
-  // Construct the full image URL
   const imageUrl = post.image.startsWith("http")
     ? post.image
     : `http://localhost:3001${post.image}`;
@@ -76,9 +82,14 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
             type="text"
             value={updatedTitle}
             onChange={(e) => setUpdatedTitle(e.target.value)}
+            onBlur={handleUpdate}
+            autoFocus
+            className="edit-input"
           />
         ) : (
-          `${post.title}`
+          <span onClick={() => setIsEditing(true)} className="editable-title">
+            {post.title}
+          </span>
         )}
       </div>
       <img
@@ -96,57 +107,64 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
         {loggedInUser && post.postedBy === loggedInUser && (
           <>
             {isEditing ? (
-              <button className="button" onClick={handleUpdate}>
-                Save
-              </button>
+              <FaSave className="icon" title="Save" onClick={handleUpdate} />
             ) : (
-              <button className="button" onClick={() => setIsEditing(true)}>
-                Update
-              </button>
+              <FaEdit
+                className="icon"
+                title="Edit"
+                onClick={() => setIsEditing(true)}
+              />
             )}
-            <button className="button" onClick={handleDelete}>
-              Delete
-            </button>
+            <FaTrash
+              className="icon delete-icon"
+              title="Delete"
+              onClick={handleDelete}
+            />
           </>
         )}
-<<<<<<< HEAD
-        <button className="button" onClick={() => setCount(count + 1)}>
-          Likes
-          <a className="likes-count">{count}</a>
-=======
-        <button className="button" onClick={handleLike}>
-          {isLiked ? "Unlike" : "Like"}
-          <a className="likes-count">{likes}</a>
->>>>>>> 054119e36f975433de57e67860037e336be70de1
-        </button>
-        <button className="button" onClick={() => setOpen(!open)}>
-          <FaShareAlt size={18} style={{ marginRight: "5px" }} />
-          Share
-        </button>
+        <div className="likes-container">
+          {isLiked ? (
+            <FaHeart
+              className="icon liked"
+              title="Unlike"
+              onClick={handleLike}
+            />
+          ) : (
+            <FaRegHeart className="icon" title="Like" onClick={handleLike} />
+          )}
+          <span className="likes-count">{likes}</span>
+        </div>
 
-        {/* Small Popup for Social Media Icons */}
-        {open && (
-          <div className="share-popup">
-            <EmailShareButton url={imageUrl}>
-              <EmailIcon size={32} round />
-            </EmailShareButton>
-            <FacebookShareButton url={imageUrl}>
-              <FacebookIcon size={32} round />
-            </FacebookShareButton>
-            <LinkedinShareButton url={imageUrl}>
-              <LinkedinIcon size={32} round />
-            </LinkedinShareButton>
-            <RedditShareButton url={imageUrl}>
-              <RedditIcon size={32} round />
-            </RedditShareButton>
-            <TwitterShareButton url={imageUrl}>
-              <XIcon size={32} round />
-            </TwitterShareButton>
-            <WhatsappShareButton url={imageUrl}>
-              <WhatsappIcon size={32} round />
-            </WhatsappShareButton>
-          </div>
-        )}
+        {/* ✅ Clickable Share Icon */}
+        <div className="share-container" ref={shareRef}>
+          <FaShareAlt
+            className="icon"
+            title="Share"
+            onClick={() => setShowShare(!showShare)}
+          />
+          {showShare && (
+            <div className="share-popup">
+              <EmailShareButton url={imageUrl}>
+                <EmailIcon size={32} round />
+              </EmailShareButton>
+              <FacebookShareButton url={imageUrl}>
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <LinkedinShareButton url={imageUrl}>
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+              <RedditShareButton url={imageUrl}>
+                <RedditIcon size={32} round />
+              </RedditShareButton>
+              <TwitterShareButton url={imageUrl}>
+                <XIcon size={32} round />
+              </TwitterShareButton>
+              <WhatsappShareButton url={imageUrl}>
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

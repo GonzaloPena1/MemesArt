@@ -1,0 +1,10 @@
+.my-component {
+  background-image: url("./src/assets/Bckimg.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
