@@ -134,8 +134,8 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
           )}
           <span className="likes-count">{likes}</span>
         </div>
-
-        {/* ✅ Clickable Share Icon */}
+        {/* 
+         Clickable Share Icon */}
         <div className="share-container" ref={shareRef}>
           <FaShareAlt
             className="icon"

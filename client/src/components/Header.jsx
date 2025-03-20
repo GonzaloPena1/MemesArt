@@ -7,6 +7,7 @@ import {
   FaSignOutAlt,
   FaUpload,
   FaRegImage,
+  FaHome,
 } from "react-icons/fa"; // Add icons from React Icons
 
 const Header = () => {
@@ -36,7 +37,7 @@ const Header = () => {
       <nav>
         {token && (
           <Link to="/memes" title="All Memes">
-            <FaRegImage className="icon" />
+            <FaHome className="icon" />
           </Link>
         )}
         {token ? (

@@ -1,0 +1,29 @@
+/* Container for the main layout */
+.container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Post list grid layout */
+.post-list {
+  flex: 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Sidebar for ads */
+.sidebar {
+  flex: 1;
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+/* Ad image styling */
+.ad-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

@@ -8,7 +8,7 @@ body {
 
 /* Navbar Styles */
 header {
-  background-color: #333;
+  background-color: #646cff;
   color: white;
   padding: 10px;
   display: flex;
@@ -24,7 +24,7 @@ header {
 header h1 {
   margin: 0;
   font-size: 1.5rem;
-  color: red;
+  color: #f7a310;
 }
 
 header nav {
@@ -44,7 +44,7 @@ header nav button {
 }
 
 header nav button {
-  background-color: #f00;
+  background-color: #f7a310;
   border-radius: 5px;
 }
 
@@ -206,11 +206,11 @@ li {
   margin-top: 16px;
 }
 
-.post-list {
+/* .post-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-}
+} */
 
 .button {
   display: inline-block;
