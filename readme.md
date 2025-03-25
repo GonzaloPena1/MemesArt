@@ -34,7 +34,7 @@ mysql -u root -p
 Enter your MySQL password when prompted, then create the database by running:
 
 ```sh
-source db/schema.sql;
+source server/db/schema.sql;
 quit;
 ```
 
@@ -70,8 +70,8 @@ The application should now be running locally.
 
 ## Usage
 
-- Open your browser and navigate to `http://localhost:5173` to access the LMS3000 application.
-- Explore features such as course management, student enrollment, and instructor assignments.
+- Open your browser and navigate to `http://localhost:5173` to access the MemesArt application.
+- Explore features such as uploading memes, give likes and share your favourite meme.
 - The Sequelize/NodeJS backend can be accessed via `http://localhost:3001`
 
 ## Contributing
@@ -84,4 +84,4 @@ This project is licensed under the **MIT License**.
 
 ---
 
-Happy Learning! 🎓🚀
+Keep Meme-ing and Keep Smiling! 😆🎉 🎓🚀

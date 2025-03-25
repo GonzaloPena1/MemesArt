@@ -9,9 +9,13 @@ import Footer from "./components/Footer";
 import HomePage from "./components/HomePage";
 import { SessionProvider } from "./contexts/SessionContext";
 
+import About from "./components/About"; // Import the About page
+
+
 import api from "./api";
 
 import ThemeToggle from "./components/ThemeToggle"; // Import the toggle button
+
 
 
 const App = () => {
@@ -36,7 +40,6 @@ const App = () => {
     <div>
       <SessionProvider>
         <Header />
-        <ThemeToggle /> {/* Add the Theme Toggle button here */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
@@ -46,6 +49,7 @@ const App = () => {
           <Route path="/upload" element={<PublishPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/about" element={<About />} /> {/* Add About Route */}
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
         <Footer />
