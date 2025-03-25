@@ -1,7 +1,3 @@
-
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
 import React, { useState, useEffect, useRef } from "react";
 
 import api from "../api";
@@ -77,7 +73,6 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-
   const handleUpdate = async () => {
     try {
       await api.put(`/api/posts/${post.id}`, { title: updatedTitle });
@@ -106,7 +101,6 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
       console.error("Failed to toggle like", error);
     }
   };
-
 
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
@@ -165,8 +159,6 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
     setShowComments(false);
   };
 
-
-
   const imageUrl = post.image.startsWith("http")
     ? post.image
     : `http://localhost:3001${post.image}`;
@@ -217,34 +209,15 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
           </>
         )}
 
-        <button className="button" onClick={handleLike}>
+        {/* <button className="button" onClick={handleLike}>
           {isLiked ? "Unlike" : "Like"}
           <a className="likes-count">{likes}</a>
-        </button>
+        </button> */}
         <button className="button" onClick={toggleComments}>
           Comments
         </button>
       </div>
-      <div className="share-buttons">
-        <EmailShareButton url={imageUrl}>
-          <EmailIcon size={42} round={true} />
-        </EmailShareButton>
-        <FacebookShareButton url={imageUrl}>
-          <FacebookIcon size={42} round={true} />
-        </FacebookShareButton>
-        <LinkedinShareButton url={imageUrl}>
-          <LinkedinIcon size={42} round={true} />
-        </LinkedinShareButton>
-        <RedditShareButton url={imageUrl}>
-          <RedditIcon size={42} round={true} />
-        </RedditShareButton>
-        <TwitterShareButton url={imageUrl}>
-          <XIcon size={42} round={true} />
-        </TwitterShareButton>
-        <WhatsappShareButton url={imageUrl}>
-          <WhatsappIcon size={42} round={true} />
-        </WhatsappShareButton>
-      </div>
+
       {showComments && (
         <div className="comments-section">
           <h3>Comments</h3>
@@ -374,51 +347,45 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
         </div>
       )}
 
-        <div className="likes-container">
-          {isLiked ? (
-            <FaHeart
-              className="icon liked"
-              title="Unlike"
-              onClick={handleLike}
-            />
-          ) : (
-            <FaRegHeart className="icon" title="Like" onClick={handleLike} />
-          )}
-          <span className="likes-count">{likes}</span>
-        </div>
-        {/* 
-         Clickable Share Icon */}
-        <div className="share-container" ref={shareRef}>
-          <FaShareAlt
-            className="icon"
-            title="Share"
-            onClick={() => setShowShare(!showShare)}
-          />
-          {showShare && (
-            <div className="share-popup">
-              <EmailShareButton url={imageUrl}>
-                <EmailIcon size={32} round />
-              </EmailShareButton>
-              <FacebookShareButton url={imageUrl}>
-                <FacebookIcon size={32} round />
-              </FacebookShareButton>
-              <LinkedinShareButton url={imageUrl}>
-                <LinkedinIcon size={32} round />
-              </LinkedinShareButton>
-              <RedditShareButton url={imageUrl}>
-                <RedditIcon size={32} round />
-              </RedditShareButton>
-              <TwitterShareButton url={imageUrl}>
-                <XIcon size={32} round />
-              </TwitterShareButton>
-              <WhatsappShareButton url={imageUrl}>
-                <WhatsappIcon size={32} round />
-              </WhatsappShareButton>
-            </div>
-          )}
-        </div>
+      <div className="likes-container">
+        {isLiked ? (
+          <FaHeart className="icon liked" title="Unlike" onClick={handleLike} />
+        ) : (
+          <FaRegHeart className="icon" title="Like" onClick={handleLike} />
+        )}
+        <span className="likes-count">{likes}</span>
       </div>
-
+      {/* 
+         Clickable Share Icon */}
+      <div className="share-container" ref={shareRef}>
+        <FaShareAlt
+          className="icon"
+          title="Share"
+          onClick={() => setShowShare(!showShare)}
+        />
+        {showShare && (
+          <div className="share-popup">
+            <EmailShareButton url={imageUrl}>
+              <EmailIcon size={32} round />
+            </EmailShareButton>
+            <FacebookShareButton url={imageUrl}>
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+            <LinkedinShareButton url={imageUrl}>
+              <LinkedinIcon size={32} round />
+            </LinkedinShareButton>
+            <RedditShareButton url={imageUrl}>
+              <RedditIcon size={32} round />
+            </RedditShareButton>
+            <TwitterShareButton url={imageUrl}>
+              <XIcon size={32} round />
+            </TwitterShareButton>
+            <WhatsappShareButton url={imageUrl}>
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

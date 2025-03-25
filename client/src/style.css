@@ -6,8 +6,6 @@ body {
 
   padding: 0;
   background-color: white;
-
-
 }
 
 /* Navbar Styles */
@@ -309,7 +307,6 @@ li {
   font-size: 1.25rem;
 }
 
-
 .cta-button:hover {
   background-color: green;
 }
@@ -407,7 +404,6 @@ li {
   margin-top: 15px;
 }
 
-
 /* Brand Image Styles */
 .brand-image {
   display: none;
@@ -464,3 +460,4 @@ body.light {
 body.dark {
   background-color: black;
   color: white;
+}
