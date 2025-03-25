@@ -212,7 +212,7 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
         {/* <button className="button" onClick={handleLike}>
           {isLiked ? "Unlike" : "Like"}
           <a className="likes-count">{likes}</a>
-        </button> */}
+        </button>  */}
         <button className="button" onClick={toggleComments}>
           Comments
         </button>
