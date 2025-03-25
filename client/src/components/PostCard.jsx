@@ -115,11 +115,7 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
                 onClick={() => setIsEditing(true)}
               />
             )}
-            <FaTrash
-              className="icon delete-icon"
-              title="Delete"
-              onClick={handleDelete}
-            />
+            <FaTrash className="icon " title="Delete" onClick={handleDelete} />
           </>
         )}
         <div className="likes-container">
