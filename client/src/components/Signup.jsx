@@ -31,7 +31,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // run any validation checks
     if (!validatePassword()) {
       return;
     }
@@ -44,7 +43,7 @@ const Signup = () => {
         password2: password2,
       });
       const data = response.data;
-      // Update the user in the context
+
       setUser({
         username: data.user.username,
         id: data.user.id,

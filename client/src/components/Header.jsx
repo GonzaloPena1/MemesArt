@@ -21,12 +21,6 @@ const Header = () => {
     }
   };
 
-  //   // const wordCase = (word) => {
-  //   //   if (word === undefined) {
-  //   //     return "";
-  //   //   }
-  //   //   return word.charAt(0).toUpperCase() + word.slice(1);
-  //   // };
   return (
     <header>
       <h1 onClick={handleMemesClick} style={{ cursor: "pointer" }}>
@@ -43,7 +37,6 @@ const Header = () => {
         {token && <Link to="/memes">All Memes</Link>}
         {token ? (
           <>
-            {/* <Link to="/profile">{wordCase(user.username)}'s Courses</Link>  UNCOMMNET TO MAKE PROFILE */}
             <Link to="/upload">Post</Link>
             <button onClick={handleLogout}>Logout</button>
           </>
