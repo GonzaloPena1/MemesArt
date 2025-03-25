@@ -3,7 +3,6 @@
 body {
   font-family: Bangers, sans-serif;
   margin: 0;
-  background-color: white;
 }
 
 /* Navbar Styles */
@@ -233,10 +232,6 @@ li {
   background-color: #0056b3;
 }
 
-.mt-5 {
-  margin-top: 5px;
-}
-
 .delegate-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -252,7 +247,7 @@ li {
   justify-content: space-between;
   align-items: center;
   margin-top: 100px;
-  padding: 0 20px;
+  padding: 0 10px;
 }
 
 .text-content {
@@ -273,14 +268,9 @@ li {
 .cta-button {
   text-decoration: none;
   color: white;
-  background-color: #34ab45;
   padding: 10px 40px;
   border-radius: 24px;
   font-size: 1.25rem;
-}
-
-.cta-button:hover {
-  background-color: green;
 }
 
 /* Brand Image Styles */
@@ -288,6 +278,38 @@ li {
   display: none;
 }
 
+.share-popup-horizontal {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.icon {
+  cursor: pointer;
+  margin: 5px;
+  font-size: 20px;
+}
+
+.share-container .icon:hover {
+  color: #007bff;
+}
+:root {
+  --header-height: 60px;
+  --footer-height: 40px;
+}
+
+.login-page {
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  top: var(--header-height);
+}
 @media (min-width: 768px) {
   .main-container {
     padding: 0 200px;
@@ -297,4 +319,14 @@ li {
     display: block;
     margin-top: 150px;
   }
+}
+
+body.light {
+  background-color: white;
+  color: black;
+}
+
+body.dark {
+  background-color: black;
+  color: white;
 }

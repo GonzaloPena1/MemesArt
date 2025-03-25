@@ -3,15 +3,15 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   background-color: white;
-  min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 /* Main Content Styles */
 main {
-  flex: 1; /* Allow the main content to grow and fill the remaining space */
-  padding-bottom: 80px; /* Adjust this value based on the footer height */
+  flex: 1;
+  padding-bottom: 80px;
 }
 
 /* Footer Styles */
