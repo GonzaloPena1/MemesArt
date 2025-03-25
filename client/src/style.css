@@ -464,12 +464,9 @@ body.dark {
   color: white;
 }
 
-
-
 .navbar {
   padding: 10px 20px;
 }
-
 
 .theme-toggle-btn {
   cursor: pointer;
@@ -478,5 +475,3 @@ body.dark {
   font-size: 1rem;
   padding: none;
 }
-
->
