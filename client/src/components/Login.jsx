@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
-
+import "../styles/Login.css";
 import { useSession } from "../contexts/SessionContext";
 
 const defaultUser = {
@@ -25,7 +25,6 @@ const Login = () => {
       });
       const data = response.data;
 
-      // Update the user in the context
       setUser({
         username: data.user.username,
         id: data.user.id,
@@ -33,30 +32,33 @@ const Login = () => {
 
       localStorage.setItem("authToken", data.token);
       navigate("/memes");
+      window.location.reload();
     } catch (error) {
       console.error("Login failed", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
+    <div className="login-page">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2>Login</h2>
+        <input
+          type="text"
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+    </div>
   );
 };
 

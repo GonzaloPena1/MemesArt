@@ -16,13 +16,9 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-
-// import the models
 const { Post } = require("../models/index");
-
-// import AuthMiddleware
 const { authMiddleware } = require("../utils/auth");
-
+//Route to post image
 app.post("/", authMiddleware, upload.single("image"), async (req, res) => {
   try {
     console.log("Request Body:", req.body);
@@ -87,7 +83,8 @@ app.delete("/:id", authMiddleware, async (req, res) => {
     res.status(500).json({ error: "Error deleting post" });
   }
 });
-//Route to like and unlike a post
+
+// Route to like and unlike a post
 app.post("/:id/like", authMiddleware, async (req, res) => {
   try {
     const post = await Post.findByPk(req.params.id);
@@ -127,5 +124,93 @@ app.post("/:id/like", authMiddleware, async (req, res) => {
     res.status(500).json({ error: "Error toggling like" });
   }
 });
-// export the router
+
+// Route to add a comment
+app.post("/:id/comments", authMiddleware, async (req, res) => {
+  console.log("Authenticated User Username:", req.user.username); // Debugging
+  console.log("Authenticated User:", req.user); // Debugging
+  try {
+    const post = await Post.findByPk(req.params.id);
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    const { text } = req.body;
+    const username = req.user.username;
+
+    let comments = [];
+    try {
+      comments = JSON.parse(post.comments || "[]");
+    } catch (error) {
+      console.error("Error parsing comments:", error);
+      comments = [];
+    }
+
+    const newComment = {
+      id: Date.now().toString(),
+      username,
+      text,
+      replies: [],
+    };
+
+    comments.push(newComment);
+    post.comments = JSON.stringify(comments);
+
+    await post.save();
+
+    res.json({ comments: comments });
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    res.status(500).json({ error: "Error adding comment" });
+  }
+});
+
+// Route to add a reply to a comment
+app.post(
+  "/:id/comments/:commentId/replies",
+  authMiddleware,
+  async (req, res) => {
+    try {
+      const post = await Post.findByPk(req.params.id);
+      if (!post) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+
+      const { text } = req.body;
+      const username = req.user.username;
+
+      let comments = [];
+      try {
+        comments = JSON.parse(post.comments || "[]");
+      } catch (error) {
+        console.error("Error parsing comments:", error);
+        comments = [];
+      }
+
+      const commentIndex = comments.findIndex(
+        (c) => c.id === req.params.commentId
+      );
+      if (commentIndex === -1) {
+        return res.status(404).json({ error: "Comment not found" });
+      }
+
+      const newReply = {
+        id: Date.now().toString(),
+        username,
+        text,
+      };
+
+      comments[commentIndex].replies.push(newReply);
+      post.comments = JSON.stringify(comments);
+
+      await post.save();
+
+      console.log("Updated comments with reply:", comments);
+      res.json({ comments: comments });
+    } catch (error) {
+      console.error("Error adding reply:", error);
+      res.status(500).json({ error: "Error adding reply" });
+    }
+  }
+);
 module.exports = app;

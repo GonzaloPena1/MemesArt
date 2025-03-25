@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { useSession } from "../contexts/SessionContext";
+import "../styles/Signup.css";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +32,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // run any validation checks
     if (!validatePassword()) {
       return;
     }
@@ -44,52 +44,54 @@ const Signup = () => {
         password2: password2,
       });
       const data = response.data;
-      // Update the user in the context
+
       setUser({
         username: data.user.username,
         id: data.user.id,
       });
-
       navigate("/login");
     } catch (error) {
       console.error("Signup failed", error);
+      displayError("Signup failed. Please try again.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Signup</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
-        required
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        value={password2}
-        onChange={(e) => setPassword2(e.target.value)}
-        required
-      />
-      {error && <p>{error}</p>}
-      <button type="submit">Signup</button>
-    </form>
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <h2>Create Account</h2>
+        {error && <p className="error-message">{error}</p>}
+        <input
+          type="text"
+          placeholder="Username"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={password2}
+          onChange={(e) => setPassword2(e.target.value)}
+          required
+        />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
   );
 };
 
