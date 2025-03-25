@@ -409,13 +409,13 @@ li {
   display: none;
 }
 
-.share-popup-horizontal {
+.share-popup {
   position: absolute;
-  top: 100%;
+  top: 80%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: 5px;
   background: white;
   padding: 8px;
   border-radius: 8px;
@@ -427,6 +427,8 @@ li {
   cursor: pointer;
   margin: 5px;
   font-size: 20px;
+  color: #646cff;
+  justify-content: space-around;
 }
 
 .share-container .icon:hover {
@@ -466,7 +468,6 @@ body.dark {
   padding: 10px 20px;
 }
 
-
 .theme-toggle-btn {
   cursor: pointer;
   background: none;
@@ -474,4 +475,3 @@ body.dark {
   font-size: 1rem;
   padding: none;
 }
-
