@@ -1,6 +1,14 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSession } from "../contexts/SessionContext";
+import {
+  FaSignInAlt,
+  FaUserPlus,
+  FaSignOutAlt,
+  FaUpload,
+  FaRegImage,
+  FaHome,
+} from "react-icons/fa"; // Add icons from React Icons
 
 const Header = () => {
   const navigate = useNavigate();
@@ -24,26 +32,36 @@ const Header = () => {
   return (
     <header>
       <h1 onClick={handleMemesClick} style={{ cursor: "pointer" }}>
-        {/* <img
-//           src={"/public/images/step8up_logo.png"}
-//           width={100}
-//           height={20}
-//           style={{ marginRight: "5px" }}
-//           alt="My logo Image"
-//         /> */}
-        Memes
+        MemesArt
       </h1>
       <nav>
-        {token && <Link to="/memes">All Memes</Link>}
+        {token && (
+          <Link to="/memes" title="All Memes">
+            <FaHome className="icon" />
+          </Link>
+        )}
         {token ? (
           <>
+
             <Link to="/upload">Post</Link>
             <button onClick={handleLogout}>Logout</button>
+
+            <Link to="/upload" title="Post a Meme">
+              <FaUpload className="icon" />
+            </Link>
+            <button onClick={handleLogout} title="Logout">
+              <FaSignOutAlt className="icon" />
+            </button>
+
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+            <Link to="/login" title="Login">
+              <FaSignInAlt className="icon" />
+            </Link>
+            <Link to="/signup" title="Sign Up">
+              <FaUserPlus className="icon" />
+            </Link>
           </>
         )}
       </nav>

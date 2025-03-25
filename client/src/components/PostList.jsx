@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import api from "../api";
 import PostCard from "./PostCard";
-
+import "../styles/PostList.css";
 const PostList = ({ loggedInUser }) => {
   const [posts, setPosts] = useState([]);
 
@@ -31,8 +31,7 @@ const PostList = ({ loggedInUser }) => {
   };
 
   return (
-    <div>
-      <h2>All Posts</h2>
+    <div className="container">
       <div className="post-list">
         {posts.map((post) => (
           <PostCard
@@ -43,6 +42,33 @@ const PostList = ({ loggedInUser }) => {
             loggedInUser={loggedInUser}
           />
         ))}
+      </div>
+      {/* Sidebar for Ads  */}
+      <div className="sidebar">
+        <div className="ad">
+          <h3>Meme of the day</h3>
+          <img
+            src="./src/assets/meme2.jpg"
+            alt="Advertisement 2"
+            className="ad-image"
+          />
+        </div>
+        <div className="ad">
+          <h3> Sponsored Ad </h3>
+          <img
+            src="./src/assets/ad.png"
+            alt="Advertisement 1"
+            className="ad-image"
+          />
+        </div>
+        <div className="ad">
+          <h3>Trending</h3>
+          <img
+            src="./src/assets/meme1.jpg"
+            alt="Advertisement 3"
+            className="ad-image"
+          />
+        </div>
       </div>
     </div>
   );

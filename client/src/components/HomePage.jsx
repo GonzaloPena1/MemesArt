@@ -1,31 +1,30 @@
 import React from "react";
+import "../styles/home-page.css";
 
 function HomePage() {
-  return (
-    <>
-      <div className="main-container">
-        <div className="text-content">
-          <p className="heading-large">Human</p>
-          <p className="heading-large">stories & ideas</p>
-          <p className="subheading">
-            A place to share mames, and laugh with your friends
-          </p>
-          <a href="register.html" className="cta-button">
-            Start reading
-          </a>
-        </div>
+  const backgroundImageUrl = "./src/assets/bcg.png";
 
-        <div className="brand-image">
-          <img
-            alt="Brand image"
-            src="https://miro.medium.com/v2/format:webp/4*SdjkdS98aKH76I8eD0_qjw.png"
-            width="460"
-            height="600"
-            loading="eager"
-          />
-        </div>
+  return (
+    <div
+      className="main-container"
+      style={{
+        backgroundImage: `url(${backgroundImageUrl})`,
+        marginTop: "var(--header-height)",
+        minHeight: "calc(100vh - var(--header-height) - var(--footer-height))",
+      }}
+    >
+      <div className="text-content">
+        <p className="heading-large">MEMES</p>
+        <p className="heading-large">ART</p>
+        <p className="subheading">
+          A place to share memes, and laugh with your friends
+        </p>
+
+        <a href="/register.html" className="cta-button">
+          Start reading
+        </a>
       </div>
-    </>
+    </div>
   );
 }
 

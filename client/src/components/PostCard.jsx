@@ -1,5 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+import React, { useState, useEffect, useRef } from "react";
+
 import api from "../api";
 import {
   EmailShareButton,
@@ -15,12 +19,21 @@ import {
   XIcon,
   WhatsappIcon,
 } from "react-share";
+import {
+  FaShareAlt,
+  FaEdit,
+  FaTrash,
+  FaHeart,
+  FaRegHeart,
+  FaSave,
+} from "react-icons/fa";
 
 const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(post.title);
   const [likes, setLikes] = useState(post.likes);
   const [isLiked, setIsLiked] = useState(post.likedBy.includes(loggedInUser));
+
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
@@ -51,6 +64,20 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
     }
   }, [post.comments]);
 
+  const [showShare, setShowShare] = useState(false);
+  const shareRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (shareRef.current && !shareRef.current.contains(event.target)) {
+        setShowShare(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
   const handleUpdate = async () => {
     try {
       await api.put(`/api/posts/${post.id}`, { title: updatedTitle });
@@ -79,6 +106,7 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
       console.error("Failed to toggle like", error);
     }
   };
+
 
   const handleAddComment = async () => {
     if (!newComment.trim()) return;
@@ -137,6 +165,8 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
     setShowComments(false);
   };
 
+
+
   const imageUrl = post.image.startsWith("http")
     ? post.image
     : `http://localhost:3001${post.image}`;
@@ -154,9 +184,14 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
             type="text"
             value={updatedTitle}
             onChange={(e) => setUpdatedTitle(e.target.value)}
+            onBlur={handleUpdate}
+            autoFocus
+            className="edit-input"
           />
         ) : (
-          `${post.title}`
+          <span onClick={() => setIsEditing(true)} className="editable-title">
+            {post.title}
+          </span>
         )}
       </div>
       <div className="image-container">
@@ -166,19 +201,22 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
         {loggedInUser && post.postedBy === loggedInUser && (
           <>
             {isEditing ? (
-              <button className="button" onClick={handleUpdate}>
-                Save
-              </button>
+              <FaSave className="icon" title="Save" onClick={handleUpdate} />
             ) : (
-              <button className="button" onClick={() => setIsEditing(true)}>
-                Update
-              </button>
+              <FaEdit
+                className="icon"
+                title="Edit"
+                onClick={() => setIsEditing(true)}
+              />
             )}
-            <button className="button" onClick={handleDelete}>
-              Delete
-            </button>
+            <FaTrash
+              className="icon delete-icon"
+              title="Delete"
+              onClick={handleDelete}
+            />
           </>
         )}
+
         <button className="button" onClick={handleLike}>
           {isLiked ? "Unlike" : "Like"}
           <a className="likes-count">{likes}</a>
@@ -335,6 +373,52 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
           </div>
         </div>
       )}
+
+        <div className="likes-container">
+          {isLiked ? (
+            <FaHeart
+              className="icon liked"
+              title="Unlike"
+              onClick={handleLike}
+            />
+          ) : (
+            <FaRegHeart className="icon" title="Like" onClick={handleLike} />
+          )}
+          <span className="likes-count">{likes}</span>
+        </div>
+        {/* 
+         Clickable Share Icon */}
+        <div className="share-container" ref={shareRef}>
+          <FaShareAlt
+            className="icon"
+            title="Share"
+            onClick={() => setShowShare(!showShare)}
+          />
+          {showShare && (
+            <div className="share-popup">
+              <EmailShareButton url={imageUrl}>
+                <EmailIcon size={32} round />
+              </EmailShareButton>
+              <FacebookShareButton url={imageUrl}>
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <LinkedinShareButton url={imageUrl}>
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+              <RedditShareButton url={imageUrl}>
+                <RedditIcon size={32} round />
+              </RedditShareButton>
+              <TwitterShareButton url={imageUrl}>
+                <XIcon size={32} round />
+              </TwitterShareButton>
+              <WhatsappShareButton url={imageUrl}>
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
+            </div>
+          )}
+        </div>
+      </div>
+
     </div>
   );
 };
