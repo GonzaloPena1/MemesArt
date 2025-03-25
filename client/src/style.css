@@ -463,3 +463,20 @@ body.dark {
   background-color: black;
   color: white;
 }
+
+
+
+.navbar {
+  padding: 10px 20px;
+}
+
+
+.theme-toggle-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  padding: none;
+}
+
+>
