@@ -44,6 +44,7 @@ const Signup = () => {
         password2: password2,
       });
       const data = response.data;
+
       setUser({
         username: data.user.username,
         id: data.user.id,
