@@ -3,6 +3,9 @@
 body {
   font-family: Bangers, sans-serif;
   margin: 0;
+
+  padding: 0;
+  background-color: white;
 }
 
 /* Navbar Styles */
@@ -158,6 +161,8 @@ li {
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
+/* Card Styles */
 .card {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -165,14 +170,44 @@ li {
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  /* height: 500px;
-  width: 400px; */
+  position: relative;
 }
 
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
+
+.card.expanded {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  z-index: 1001;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
 .image-container {
   width: 100%;
   height: auto;
@@ -181,23 +216,22 @@ li {
   justify-content: center;
   align-items: center;
 }
-/* .card-image {
+
+.card-image {
   max-width: 100%;
-  max-height: 300px; 
+  max-height: 300px;
   height: auto;
-  border-radius: 8px;
-} */
-/* .card-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #333;
-} */
+}
+
+.card.expanded .card-image {
+  max-height: 500px;
+}
 
 .card-description {
   font-size: 1rem;
   color: #666;
 }
+
 .card-options {
   display: flex;
   justify-content: center;
@@ -271,6 +305,103 @@ li {
   padding: 10px 40px;
   border-radius: 24px;
   font-size: 1.25rem;
+}
+
+.cta-button:hover {
+  background-color: green;
+}
+
+/* Comments Section */
+.comments-section {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.comments-section h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.comment {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.reply {
+  margin-left: 10px;
+  margin-top: 5px;
+  padding-left: 5px;
+  /* border-left: 2px solid #ddd; */
+}
+
+.reply-link {
+  color: #606060;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.reply-link:hover {
+  text-decoration: underline;
+}
+.see-replies-link {
+  color: #606060;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-left: 20px;
+}
+
+.see-replies-link:hover {
+  text-decoration: underline;
+}
+.underscore {
+  display: inline-block;
+  transform: translateY(-8px);
+}
+.comment-input,
+.reply-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.comment-input input,
+.reply-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.comment-input button,
+.reply-input button {
+  padding: 8px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-input button:hover,
+.reply-input button:hover {
+  background-color: #45a049;
+}
+
+.comment-input button:disabled,
+.reply-input button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Share Buttons */
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 15px;
 }
 
 /* Brand Image Styles */
