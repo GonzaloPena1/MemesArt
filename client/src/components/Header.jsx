@@ -42,12 +42,17 @@ const Header = () => {
         )}
         {token ? (
           <>
+
+            <Link to="/upload">Post</Link>
+            <button onClick={handleLogout}>Logout</button>
+
             <Link to="/upload" title="Post a Meme">
               <FaUpload className="icon" />
             </Link>
             <button onClick={handleLogout} title="Logout">
               <FaSignOutAlt className="icon" />
             </button>
+
           </>
         ) : (
           <>

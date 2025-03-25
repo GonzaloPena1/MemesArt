@@ -1,35 +1,20 @@
 const router = require("express").Router();
-const { User, EnrolledUser } = require("../models");
+const { User } = require("../models");
 const { signToken, authMiddleware } = require("../utils/auth");
 
 // Get current authenticated user
 router.get("/me", authMiddleware, async (req, res) => {
   try {
     const user = await User.getOne(req.user.id);
-    if (!user) return res.status(401).json({ message: "Token expired" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     return res.status(200).json({ user });
   } catch (err) {
-    res.status(500).json(err);
+    console.error("Error fetching user:", err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
-// router.post("/enroll", authMiddleware, async (req, res) => {
-//   try {
-//     const { courseId } = req.body;
-//     const user = await User.getOne(req.user.id);
-//     if (!user) return res.status(401).json({ message: "Token expired" });
-
-//     await EnrolledUser.create({
-//       userId: req.user.id,
-//       courseId,
-//       enrollment_date: new Date(),
-//     });
-
-//     res.status(200).json({ message: "Course enrolled" });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
 
 // GET the User record
 router.get("/:id", async (req, res) => {
@@ -56,12 +41,21 @@ router.get("/", authMiddleware, async (req, res) => {
     res.status(400).json(err);
   }
 });
-
+//Create User
 router.post("/", async (req, res) => {
   try {
     const userData = await User.create(req.body);
 
-    const token = signToken(userData);
+    // Log the userData object to verify it contains the username field
+    console.log("User Data:", userData);
+
+    // Include the username in the token payload
+    const token = signToken({
+      id: userData.id,
+      email: userData.email,
+      username: userData.username, // Include the username
+    });
+
     res.status(200).json({ token, user: userData });
   } catch (err) {
     console.log(err);
@@ -88,34 +82,40 @@ router.put("/:id", authMiddleware, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+//Login User
 router.post("/login", async (req, res) => {
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
     if (!userData) {
-      res
+      return res
         .status(400)
         .json({ message: "Incorrect email or password, please try again" });
-      return;
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
-
     if (!validPassword) {
-      res
+      return res
         .status(400)
         .json({ message: "Incorrect email or password, please try again" });
-      return;
     }
 
-    const token = signToken(userData);
+    // Log the userData to check that has the username
+    console.log("User Data:", userData);
+
+    // Add username in the token payload
+    const token = signToken({
+      id: userData.id,
+      email: userData.email,
+      username: userData.username, // Add the username
+    });
+
     res.status(200).json({ token, user: userData });
   } catch (err) {
     console.log(err);
     res.status(400).json(err);
   }
 });
-
+//Logout User
 router.post("/logout", (_, res) => {
   res.status(204).end();
 });

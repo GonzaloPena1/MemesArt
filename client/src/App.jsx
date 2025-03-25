@@ -1,19 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import PostList from "./components/PostList";
-// import PostDetails from "./components/PostDetails";
-// import ProfilePicture from "./components/Profile";
 import PublishPost from "./components/CreatePost";
 import Footer from "./components/Footer";
 import HomePage from "./components/HomePage";
 import { SessionProvider } from "./contexts/SessionContext";
+
+import api from "./api";
+
 import ThemeToggle from "./components/ThemeToggle"; // Import the toggle button
 
+
 const App = () => {
-  const loggedInUser = "user123";
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  useEffect(() => {
+    const fetchLoggedInUser = async () => {
+      try {
+        const response = await api.get("/user/me");
+        if (response.data.user) {
+          setLoggedInUser(response.data.user.username);
+        }
+      } catch (error) {
+        console.error("Failed to fetch logged-in user:", error);
+      }
+    };
+
+    fetchLoggedInUser();
+  }, []);
 
   return (
     <div>
@@ -26,8 +43,6 @@ const App = () => {
             path="/memes"
             element={<PostList loggedInUser={loggedInUser} />}
           />
-          {/* <Route path="/course/:id" element={<PostDetails />} /> Uncomment to get individual post page */}
-          {/* <Route path="/profile" element={<ProfilePicture />} />   Uncomment to link to profile */}
           <Route path="/upload" element={<PublishPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

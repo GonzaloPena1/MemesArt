@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const sequelize = require("./config/connection");
 const routes = require("./routes");
+const userRoutes = require("./routes/user");
 
 // Initialize Express application
 const app = express();
@@ -31,6 +32,8 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+// Add user routes
+app.use("/user", userRoutes);
 // Add routes
 app.use(routes);
 

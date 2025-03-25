@@ -25,7 +25,6 @@ const Login = () => {
       });
       const data = response.data;
 
-      // Update the user in the context
       setUser({
         username: data.user.username,
         id: data.user.id,
@@ -33,6 +32,7 @@ const Login = () => {
 
       localStorage.setItem("authToken", data.token);
       navigate("/memes");
+      window.location.reload();
     } catch (error) {
       console.error("Login failed", error);
     }
