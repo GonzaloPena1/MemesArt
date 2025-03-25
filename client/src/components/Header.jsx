@@ -9,6 +9,7 @@ import {
   FaRegImage,
   FaHome,
 } from "react-icons/fa"; // Add icons from React Icons
+import ThemeToggle from "./ThemeToggle"; // Import the toggle button
 
 const Header = () => {
   const navigate = useNavigate();
@@ -34,7 +35,9 @@ const Header = () => {
       <h1 onClick={handleMemesClick} style={{ cursor: "pointer" }}>
         MemesArt
       </h1>
-      <nav>
+      <nav className="navbar">
+        {/* Move Theme Toggle to the beginning */}
+        <ThemeToggle /> 
         {token && (
           <Link to="/memes" title="All Memes">
             <FaHome className="icon" />
