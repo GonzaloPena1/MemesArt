@@ -32,6 +32,16 @@ const PostList = ({ loggedInUser }) => {
 
   return (
     <div className="container">
+      <div className="sidebar left-sidebar">
+        <div className="ad">
+          <h3>Hot Picks</h3>
+          <img src="./src/assets/ad.png" alt="Ad 4" className="ad-image" />
+        </div>
+        <div className="ad">
+          <h3>New Deals</h3>
+          <img src="./src/assets/ad.png" alt="Ad 5" className="ad-image" />
+        </div>
+      </div>
       <div className="post-list">
         {posts.map((post) => (
           <PostCard
