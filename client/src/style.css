@@ -1,9 +1,6 @@
-/* General Styles */
-
 body {
   font-family: Bangers, sans-serif;
   margin: 0;
-
   padding: 0;
   background-color: white;
 }
@@ -22,7 +19,9 @@ header {
   left: 0;
   z-index: 1000;
   box-sizing: border-box;
+  margin-bottom: 100px;
 }
+
 header h1 {
   margin: 0;
   font-size: 1.5rem;
@@ -54,6 +53,7 @@ header nav a:hover,
 header nav button:hover {
   text-decoration: underline;
 }
+
 main {
   padding-top: 70px;
 }
@@ -140,37 +140,20 @@ form button:hover {
 .create-post button:hover {
   background-color: #555;
 }
-/* Course List Styles */
-div {
-  padding: 20px;
-}
 
-h2 {
-  margin-top: 0;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  padding: 10px;
-  background-color: white;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/* Card Styles */
+/* Compact Card Styles */
 .card {
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  padding: 16px;
+  padding: 12px;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  margin-top: 50px;
 }
 
 .card:hover {
@@ -190,6 +173,7 @@ li {
   z-index: 1000;
   background-color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  padding: 16px;
 }
 
 .close-button {
@@ -215,12 +199,14 @@ li {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .card-image {
   max-width: 100%;
   max-height: 300px;
   height: auto;
+  object-fit: contain;
 }
 
 .card.expanded .card-image {
@@ -228,22 +214,19 @@ li {
 }
 
 .card-description {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #666;
+  margin: 4px 0;
+  line-height: 1.3;
+  flex-grow: 1;
 }
 
 .card-options {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 8px;
 }
-
-/* .post-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-} */
 
 .button {
   display: inline-block;
@@ -266,10 +249,21 @@ li {
   background-color: #0056b3;
 }
 
-.delegate-list {
+/* Grid Layout with Consistent 20px Gap */
+.delegate-list,
+.post-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
+  position: relative;
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .delegate-list,
+  .post-list {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
 }
 
 .likes-count {
@@ -311,6 +305,28 @@ li {
   background-color: green;
 }
 
+.action-icons-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.likes-container,
+.comment-container,
+.share-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 20px;
+}
+
 /* Comments Section */
 .comments-section {
   margin-top: 20px;
@@ -334,7 +350,6 @@ li {
   margin-left: 10px;
   margin-top: 5px;
   padding-left: 5px;
-  /* border-left: 2px solid #ddd; */
 }
 
 .reply-link {
@@ -346,6 +361,7 @@ li {
 .reply-link:hover {
   text-decoration: underline;
 }
+
 .see-replies-link {
   color: #606060;
   cursor: pointer;
@@ -356,10 +372,12 @@ li {
 .see-replies-link:hover {
   text-decoration: underline;
 }
+
 .underscore {
   display: inline-block;
   transform: translateY(-8px);
 }
+
 .comment-input,
 .reply-input {
   display: flex;
@@ -396,12 +414,52 @@ li {
   cursor: not-allowed;
 }
 
-/* Share Buttons */
-.share-buttons {
+/* Conflic?? */
+.share-container {
+  position: relative;
+}
+/* Share Container Styles */
+.share-popup {
+  position: absolute;
+
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
   gap: 5px;
-  margin-top: 15px;
+
+  background: white;
+  padding: 6px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+/* Conflic?? */
+.share-container .icon {
+  font-size: 20px;
+
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+
+  color: #646cff;
+  justify-content: space-around;
+
+}
+/* Conflic?? */
+.share-container .icon:hover {
+  transform: scale(1.1);
+}
+.card.expanded .share-popup {
+  position: fixed;
+  z-index: 1001;
 }
 
 /* Brand Image Styles */
@@ -409,31 +467,6 @@ li {
   display: none;
 }
 
-.share-popup {
-  position: absolute;
-  top: 80%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 5px;
-  background: white;
-  padding: 8px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-}
-
-.icon {
-  cursor: pointer;
-  margin: 5px;
-  font-size: 20px;
-  color: #646cff;
-  justify-content: space-around;
-}
-
-.share-container .icon:hover {
-  color: #007bff;
-}
 :root {
   --header-height: 60px;
   --footer-height: 40px;
@@ -443,6 +476,7 @@ li {
   height: calc(100vh - var(--header-height) - var(--footer-height));
   top: var(--header-height);
 }
+
 @media (min-width: 768px) {
   .main-container {
     padding: 0 200px;
@@ -475,3 +509,47 @@ body.dark {
   font-size: 1rem;
   padding: none;
 }
+
+/* Conflic?? */
+/* layout for larger screens */
+@media (min-width: 1200px) {
+  .main-content-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .left-sidebar {
+    width: 250px;
+    order: 1;
+    margin-top: 80px;
+  }
+
+  .post-list-container {
+    flex: 1;
+    order: 2;
+    padding: 0 20px;
+    margin-top: 50px;
+  }
+
+  .right-sidebar {
+    width: 250px;
+    order: 3;
+    margin-top: 80px;
+  }
+
+  .post-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1199px) {
+  .left-sidebar {
+    display: none;
+  }
+
+  .post-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+/* Conflic?? */

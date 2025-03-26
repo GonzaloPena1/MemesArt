@@ -22,6 +22,7 @@ import {
   FaHeart,
   FaRegHeart,
   FaSave,
+  FaRegComment,
 } from "react-icons/fa";
 
 const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
@@ -204,14 +205,6 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
             <FaTrash className="icon " title="Delete" onClick={handleDelete} />
           </>
         )}
-
-        {/* <button className="button" onClick={handleLike}>
-          {isLiked ? "Unlike" : "Like"}
-          <a className="likes-count">{likes}</a>
-        </button>  */}
-        <button className="button" onClick={toggleComments}>
-          Comments
-        </button>
       </div>
 
       {showComments && (
@@ -342,45 +335,58 @@ const PostCard = ({ post, onDelete, onUpdate, loggedInUser }) => {
           </div>
         </div>
       )}
+      <div className="action-icons-container">
+        <div className="likes-container">
+          {isLiked ? (
+            <FaHeart
+              className="icon liked"
+              title="Unlike"
+              onClick={handleLike}
+            />
+          ) : (
+            <FaRegHeart className="icon" title="Like" onClick={handleLike} />
+          )}
+          <span className="likes-count">{likes}</span>
+        </div>
+        <div className="comment-container">
+          <FaRegComment
+            className="icon"
+            title="Comment"
+            onClick={toggleComments}
+          />
+        </div>
 
-      <div className="likes-container">
-        {isLiked ? (
-          <FaHeart className="icon liked" title="Unlike" onClick={handleLike} />
-        ) : (
-          <FaRegHeart className="icon" title="Like" onClick={handleLike} />
-        )}
-        <span className="likes-count">{likes}</span>
-      </div>
-      {/* 
-         Clickable Share Icon */}
-      <div className="share-container" ref={shareRef}>
-        <FaShareAlt
-          className="icon"
-          title="Share"
-          onClick={() => setShowShare(!showShare)}
-        />
-        {showShare && (
-          <div className="share-popup">
-            <EmailShareButton url={imageUrl}>
-              <EmailIcon size={32} round />
-            </EmailShareButton>
-            <FacebookShareButton url={imageUrl}>
-              <FacebookIcon size={32} round />
-            </FacebookShareButton>
-            <LinkedinShareButton url={imageUrl}>
-              <LinkedinIcon size={32} round />
-            </LinkedinShareButton>
-            <RedditShareButton url={imageUrl}>
-              <RedditIcon size={32} round />
-            </RedditShareButton>
-            <TwitterShareButton url={imageUrl}>
-              <XIcon size={32} round />
-            </TwitterShareButton>
-            <WhatsappShareButton url={imageUrl}>
-              <WhatsappIcon size={32} round />
-            </WhatsappShareButton>
-          </div>
-        )}
+        {/* Clickable Share Icon */}
+        <div className="share-container" ref={shareRef}>
+          <FaShareAlt
+            className="icon"
+            title="Share"
+            onClick={() => setShowShare(!showShare)}
+            style={{ fontSize: "20px" }}
+          />
+          {showShare && (
+            <div className="share-popup">
+              <EmailShareButton url={imageUrl}>
+                <EmailIcon size={32} round />
+              </EmailShareButton>
+              <FacebookShareButton url={imageUrl}>
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <LinkedinShareButton url={imageUrl}>
+                <LinkedinIcon size={32} round />
+              </LinkedinShareButton>
+              <RedditShareButton url={imageUrl}>
+                <RedditIcon size={32} round />
+              </RedditShareButton>
+              <TwitterShareButton url={imageUrl}>
+                <XIcon size={32} round />
+              </TwitterShareButton>
+              <WhatsappShareButton url={imageUrl}>
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
