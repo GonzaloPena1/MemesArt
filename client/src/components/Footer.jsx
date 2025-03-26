@@ -8,7 +8,8 @@ const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleScroll = () => {
-    if (window.scrollY > 100) { // Adjust the scroll threshold as needed
+    if (window.scrollY > 100) {
+      // Adjust the scroll threshold as needed
       setIsVisible(true); // Show footer
     } else {
       setIsVisible(false); // Hide footer
@@ -49,22 +50,38 @@ const Footer = () => {
       {/* Social Media Icons */}
       <ul className={styles.footerSocial}>
         <li>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaFacebook className={styles.iconFacebook} />
           </a>
         </li>
         <li>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaTwitter className={styles.iconTwitter} />
           </a>
         </li>
         <li>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaInstagram className={styles.iconInstagram} />
           </a>
         </li>
         <li>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://youtube.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <FaYoutube className={styles.iconYoutube} />
           </a>
         </li>
