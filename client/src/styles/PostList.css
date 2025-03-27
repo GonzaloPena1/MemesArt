@@ -67,55 +67,19 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .main-content-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .left-sidebar,
-  .right-sidebar {
-    width: 100%;
-    order: 3;
-    margin-top: 20px;
-  }
-
-  .right-sidebar {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .ad-image {
-    width: 100%;
-    max-width: none;
-    margin-left: 0;
-    margin-top: 0;
-  }
-
-  .ad-container {
-    justify-content: center;
-  }
-}
-
 @media screen and (max-width: 600px) {
-  .post-list {
-    grid-template-columns: 1fr;
-  }
-
-  .ad {
-    margin-top: 0;
-  }
-
   .ad-image {
     max-width: 250px;
     width: 80%;
-    margin: 0 auto;
+    margin-left: 25px;
     border-radius: 10px !important;
+    transform: translateZ(0);
+    margin-left: 80px;
   }
 
   .ad-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 0;
   }
 }
@@ -129,6 +93,13 @@
 .ad-container {
   position: relative;
   text-align: center;
+}
+
+.ad-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  display: block;
 }
 
 /* Large ad with top caption */
