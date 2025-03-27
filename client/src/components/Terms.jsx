@@ -3,7 +3,7 @@ import "../style.css";
 
 const TermsAndConditions = () => {
   return (
-    <div className="about">
+    <div className="terms">
       <h1 className="text-2xl font-bold">Terms & Conditions</h1>
       <p className="mt-2">
         By using our platform, you agree to the following terms and

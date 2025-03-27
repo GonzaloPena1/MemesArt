@@ -5,8 +5,8 @@ import "../styles/Login.css";
 import { useSession } from "../contexts/SessionContext";
 
 const defaultUser = {
-  email: "gonzalo1@gmail.com",
-  password: "123456789",
+  email: "",
+  password: "",
 };
 
 const Login = () => {
@@ -39,25 +39,27 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input
-          type="text"
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
+    <div className="homepage-container">
+      <div className="login-page">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h2>Login</h2>
+          <input
+            type="text"
+            placeholder="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+      </div>
     </div>
   );
 };

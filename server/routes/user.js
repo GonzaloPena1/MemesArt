@@ -106,7 +106,7 @@ router.post("/login", async (req, res) => {
     const token = signToken({
       id: userData.id,
       email: userData.email,
-      username: userData.username, // Add the username
+      username: userData.username,
     });
 
     res.status(200).json({ token, user: userData });

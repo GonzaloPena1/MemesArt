@@ -33,7 +33,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<h1>Not Found</h1>} />
           <Route path="/about" element={<About />} />
-          <Route path="/terms" element={<Terms />} />
+          <Route path="/terms-and-conditions" element={<Terms />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </SessionProvider>
