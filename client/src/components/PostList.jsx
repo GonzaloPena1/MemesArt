@@ -139,6 +139,7 @@ const PostList = ({ loggedInUser }) => {
   );
 
   return (
+
     <div className="main-content-container">
       {/* Left Sidebar - visible only on large screens */}
       <div className="left-sidebar">

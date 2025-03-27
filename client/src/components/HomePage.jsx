@@ -17,11 +17,11 @@ function HomePage() {
         <p className="heading-large">MEMES</p>
         <p className="heading-large">ART</p>
         <p className="subheading">
-          A place to share memes, and laugh with your friends
+          A place to share memes and <br></br>laugh with friends
         </p>
 
         <a href="/register.html" className="cta-button">
-          Start reading
+          Start Memeing
         </a>
       </div>
     </div>

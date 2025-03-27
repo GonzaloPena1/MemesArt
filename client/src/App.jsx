@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Login from "./components/Login";
@@ -8,52 +8,36 @@ import PublishPost from "./components/CreatePost";
 import Footer from "./components/Footer";
 import HomePage from "./components/HomePage";
 import { SessionProvider } from "./contexts/SessionContext";
-
-import About from "./components/About"; // Import the About page
-
-
-import api from "./api";
-
 import ThemeToggle from "./components/ThemeToggle"; // Import the toggle button
-
-
+import About from "./components/About";
+import Terms from "./components/Terms";
+import Contact from "./components/Contact";
 
 const App = () => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  useEffect(() => {
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await api.get("/user/me");
-        if (response.data.user) {
-          setLoggedInUser(response.data.user.username);
-        }
-      } catch (error) {
-        console.error("Failed to fetch logged-in user:", error);
-      }
-    };
-
-    fetchLoggedInUser();
-  }, []);
+  const loggedInUser = "user123";
 
   return (
     <div>
       <SessionProvider>
         <Header />
+        <ThemeToggle /> {/* Add the Theme Toggle button here */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
             path="/memes"
             element={<PostList loggedInUser={loggedInUser} />}
           />
+
           <Route path="/upload" element={<PublishPost />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/about" element={<About />} /> {/* Add About Route */}
           <Route path="*" element={<h1>Not Found</h1>} />
+          <Route path="/about" element={<About />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
-        <Footer />
       </SessionProvider>
+      <Footer />
     </div>
   );
 };
