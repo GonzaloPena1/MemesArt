@@ -8,8 +8,8 @@
     "install": "cd server && npm install && cd ../client && npm install",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
-    "render-build": "npm ci && cd client && rm -rf node_modules package-lock.json && npm i --include=dev && npm run build && cd ../server && npm ci",
-    "render-start": "node server/server.js || echo \"Server failed to start\" && exit 1"
+    "render-build": "npm ci && cd client && npm ci --include=dev && npm run build && cd ../server && npm ci",
+    "render-start": "node server/server.js"
   },
   "keywords": [],
   "author": "",

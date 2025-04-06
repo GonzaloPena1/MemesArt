@@ -31,6 +31,7 @@ const Post = sequelize.define("Post", {
     type: DataTypes.TEXT,
     defaultValue: JSON.stringify([]),
   },
+  timestamps: true,
 });
 
 module.exports = Post;
