@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "concurrently \"cd server && npm run dev\" \"cd client && npm run dev\"",
+    "prod": "NODE_ENV=production node server.js",
+    "debug": "NODE_DEBUG=postgres,sequelize node server.js",
     "install": "cd server && npm install && cd ../client && npm install",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
