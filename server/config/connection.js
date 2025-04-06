@@ -6,7 +6,7 @@ const isProduction = process.env.NODE_ENV === "production";
 
 const dbConfig = isProduction
   ? {
-      connectionString: process.env.DATABASE_URL,
+      connectionString: process.env.DATABASE_URL?.trim(), // Trim whitespace from URL
       dialect: "postgres",
       dialectOptions: {
         ssl: {
@@ -15,6 +15,22 @@ const dbConfig = isProduction
         },
       },
       logging: false,
+      retry: {
+        max: 5, // Maximum retry attempts
+        timeout: 60000, // Timeout per attempt (1 min)
+        match: [
+          /ConnectionError/,
+          /SequelizeConnectionError/,
+          /ECONNREFUSED/,
+          /ETIMEDOUT/,
+        ],
+      },
+      pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000,
+      },
     }
   : {
       database: process.env.DB_NAME || "memes_db",
@@ -41,7 +57,19 @@ sequelize
         "ℹ️ Production DB URL:",
         process.env.DATABASE_URL ? "exists" : "missing"
       );
-      log("ℹ️ Connection Config:", JSON.stringify(dbConfig, null, 2));
+      log(
+        "ℹ️ Connection Config:",
+        JSON.stringify(
+          {
+            ...dbConfig,
+            connectionString: dbConfig.connectionString
+              ? `${dbConfig.connectionString.substring(0, 25)}...`
+              : "hidden",
+          },
+          null,
+          2
+        )
+      );
     }
     process.exit(1); // Exit with error code
   });
