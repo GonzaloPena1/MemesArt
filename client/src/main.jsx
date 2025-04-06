@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { ThemeProvider } from "./contexts/ThemeContext"; // Import ThemeProvider
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 import "./style.css";
 
