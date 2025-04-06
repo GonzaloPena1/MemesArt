@@ -8,7 +8,8 @@
     "install": "cd server && npm install && cd ../client && npm install",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
-    "render-build": "cd client && npm install && npm run build && cd ../server && npm install"
+    "render-build": "npm install && cd server && npm install && cd ../client && npm install && npm run build",
+    "render-start": "node server/server.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,7 @@
     "mysql2": "^3.6.5",
     "react-icons": "^5.5.0",
     "react-share": "^5.2.2",
-    "react-share-social": "^0.1.60"
+    "react-share-social": "^0.1.60",
+    "sequelize": "^6.37.5"
   }
 }
