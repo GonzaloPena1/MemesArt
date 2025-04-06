@@ -4,9 +4,34 @@ const { log } = console;
 
 const isProduction = process.env.NODE_ENV === "production";
 
-const dbConfig = isProduction
-  ? {
-      connectionString: process.env.DATABASE_URL?.trim(), // Trim whitespace from URL
+// Parse database URL if in production
+const parseDbUrl = (url) => {
+  try {
+    const parsed = new URL(url);
+    return {
+      database: parsed.pathname.slice(1),
+      username: parsed.username,
+      password: parsed.password,
+      host: parsed.hostname,
+      port: parsed.port,
+    };
+  } catch (err) {
+    log("⚠️ Error parsing DATABASE_URL:", err.message);
+    return null;
+  }
+};
+
+const getDbConfig = () => {
+  if (isProduction) {
+    const parsed = parseDbUrl(process.env.DATABASE_URL?.trim());
+    if (!parsed) process.exit(1);
+
+    return {
+      database: parsed.database,
+      username: parsed.username,
+      password: parsed.password,
+      host: parsed.host,
+      port: parsed.port,
       dialect: "postgres",
       dialectOptions: {
         ssl: {
@@ -14,10 +39,10 @@ const dbConfig = isProduction
           rejectUnauthorized: false,
         },
       },
-      logging: false,
+      logging: (msg) => log(msg),
       retry: {
-        max: 5, // Maximum retry attempts
-        timeout: 60000, // Timeout per attempt (1 min)
+        max: 5,
+        timeout: 60000,
         match: [
           /ConnectionError/,
           /SequelizeConnectionError/,
@@ -25,53 +50,48 @@ const dbConfig = isProduction
           /ETIMEDOUT/,
         ],
       },
-      pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000,
-      },
-    }
-  : {
-      database: process.env.DB_NAME || "memes_db",
-      username: process.env.DB_USER || "root",
-      password: process.env.DB_PASSWORD || "",
-      host: process.env.DB_HOST || "localhost",
-      dialect: "mysql",
-      port: process.env.DB_PORT || 3306,
-      logging: console.log,
     };
+  }
 
-// Create connection
-const sequelize = new Sequelize(dbConfig);
+  return {
+    database: process.env.DB_NAME || "memes_db",
+    username: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD || "",
+    host: process.env.DB_HOST || "localhost",
+    dialect: "mysql",
+    port: process.env.DB_PORT || 3306,
+    logging: console.log,
+  };
+};
 
-// Test connection
-sequelize
-  .authenticate()
-  .then(() => log("✅ Database connected successfully"))
-  .catch((err) => {
-    log("❌ Database connection error:");
-    log(err.message);
+const sequelize = new Sequelize(getDbConfig());
+
+// Enhanced connection test
+const testConnection = async () => {
+  try {
+    await sequelize.authenticate();
+    log("✅ Database connected successfully");
+
+    // Verify database is reachable
+    const [result] = await sequelize.query("SELECT 1+1 AS result");
+    log("🔢 Database test query result:", result[0].result);
+
+    return true;
+  } catch (err) {
+    log("❌ Database connection failed:");
+    log("Error:", err.message);
+    log("Connection Config:", JSON.stringify(getDbConfig(), null, 2));
+
     if (isProduction) {
-      log(
-        "ℹ️ Production DB URL:",
-        process.env.DATABASE_URL ? "exists" : "missing"
-      );
-      log(
-        "ℹ️ Connection Config:",
-        JSON.stringify(
-          {
-            ...dbConfig,
-            connectionString: dbConfig.connectionString
-              ? `${dbConfig.connectionString.substring(0, 25)}...`
-              : "hidden",
-          },
-          null,
-          2
-        )
-      );
+      log("ℹ️ Checking database URL format...");
+      const parsed = parseDbUrl(process.env.DATABASE_URL?.trim());
+      log("Parsed URL:", parsed);
     }
-    process.exit(1); // Exit with error code
-  });
+
+    process.exit(1);
+  }
+};
+
+testConnection();
 
 module.exports = sequelize;

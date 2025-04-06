@@ -37,6 +37,24 @@ app.use("/user", userRoutes);
 // Add routes
 app.use(routes);
 
+//Health Check Endpoint
+app.get("/health", async (req, res) => {
+  try {
+    await sequelize.authenticate();
+    await sequelize.query("SELECT 1");
+    res.status(200).json({
+      status: "healthy",
+      database: "connected",
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: "unhealthy",
+      error: err.message,
+      database: "disconnected",
+    });
+  }
+});
+
 // Sync database
 sequelize.sync({ force: rebuild }).then(() => {
   app.listen(PORT, () => console.log("Now listening"));
